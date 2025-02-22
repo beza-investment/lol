@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TikTok Coin Recharge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header h2 {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 10px;
+      font-size: 24px;
+    }
+    .header-icon {
+      width: 30px;
+      vertical-align: middle;
+    }
+    .username-input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .coins {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .coin-option {
+      flex: 1 1 calc(50% - 10px);
+      background: #f1f1f1;
+      padding: 15px;
+      text-align: center;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .coin-option:hover {
+      background: #e0e0e0;
+    }
+    .coin-img {
+      width: 20px;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+    .price {
+      display: block;
+      font-size: 12px;
+      color: #555;
+      margin-top: 5px;
+    }
+    .custom-coin {
+      margin-top: 20px;
+    }
+    .custom-coin input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .recharge-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      background: #ff2d55;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .recharge-btn:hover {
+      background: #e02b50;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="tiktok.png" alt="TikTok Icon" class="header-icon">
+      <img src="coin.png" alt="Coin Icon" class="header-icon">
+      <h2>TikTok Coin Recharge</h2>
+    </div>
+    <input type="text" id="username" class="username-input" placeholder="Enter username">
+    <div class="coins">
+      <div class="coin-option" data-value="10000" data-price="9.99">
+        <img src="coin.png" alt="Coin" class="coin-img">
+        10,000
+        <span class="price">Cost: $142.26</span>
+      </div>
+      <div class="coin-option" data-value="20000" data-price="19.99">
+        <img src="coin.png" alt="Coin" class="coin-img">
+        20,000
+        <span class="price">Cost: $270.10</span>
+      </div>
+      <div class="coin-option" data-value="9999" data-price="9.49">
+        <img src="coin.png" alt="Coin" class="coin-img">
+        9,999
+        <span class="price">Cost: $142.01</span>
+      </div>
+      <div class="coin-option" data-value="6799" data-price="6.49">
+        <img src="coin.png" alt="Coin" class="coin-img">
+        6,799
+        <span class="price">Cost: $96.56</span>
+      </div>
+    </div>
+    <div class="custom-coin">
+      <input type="number" id="customCoin" placeholder="Type coin how you want">
+    </div>
+    <button class="recharge-btn" onclick="recharge()">Recharge</button>
+  </div>
+
+  <script>
+    const coinOptions = document.querySelectorAll('.coin-option');
+    let selectedCoin = null;
+    let selectedPrice = null;
+
+    coinOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        coinOptions.forEach(opt => opt.style.background = '#f1f1f1');
+        option.style.background = '#d1d1d1';
+        selectedCoin = option.getAttribute('data-value');
+        selectedPrice = option.getAttribute('data-price');
+        document.getElementById('customCoin').value = '';
+      });
+    });
+
+    function recharge() {
+      const username = document.getElementById('username').value.trim();
+      let coinAmount = selectedCoin;
+      let cost = selectedPrice;
+      const customCoin = document.getElementById('customCoin').value.trim();
+
+      if (!username) {
+        alert('Please enter your username.');
+        return;
+      }
+
+      if (customCoin) {
+        coinAmount = customCoin;
+        cost = "Custom";
+      }
+
+      if (!coinAmount) {
+        alert('Please select a coin option or enter a custom coin amount.');
+        return;
+      }
+
+      window.location.href = `cd.html?username=${encodeURIComponent(username)}&coins=${encodeURIComponent(coinAmount)}&cost=${encodeURIComponent(cost)}`;
+    }
+  </script>
+</body>
+</html>
